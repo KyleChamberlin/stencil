@@ -1,5 +1,4 @@
-branches:
-  - main
+branch: main
 tag-format: ${version}
 plugins:
   - "@semantic-release-cargo/semantic-release-cargo"
