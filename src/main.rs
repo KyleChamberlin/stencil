@@ -1,4 +1,6 @@
 fn main() {
-    let idontcare = 0;
+      let   idontcare 
+         =    0;
+
     println!("Hello, world!");
 }
