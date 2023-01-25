@@ -1,0 +1,50 @@
+name: Validate Rust Source
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs_on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+      - uses: actions-rust-lang/rustfmt@v1
+      - name: Verify Project
+        run: cargo verify-project -v
+      - name: Cargo Check
+        run: cargo check
+      - name: Clippy Lint
+        run: cargo clippy
+
+  build:
+    needs: checks
+    strategy:
+      fail-fast: true
+      matrix:
+        toolchain: [stable]
+        os: [ubuntu-latest, ubuntu-20.04, windows-latest, windows-2019, macos-latest, macos-11]
+        experimental: [false]
+        include:
+          - toolchain: beta
+            os: ubuntu-latest
+            experimental: true
+          - toolchain: nightly
+            os: ubuntu-latest
+            experimental: true
+    continue-on-error: ${{ matrix.experimental }}
+    runs_on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: ${{ matrix.toolchain }}
+      - name: Build
+        run: cargo build --release
+      - name: Test
+        run: cargo test
