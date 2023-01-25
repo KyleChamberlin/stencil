@@ -1,8 +1,15 @@
 [package]
-name = "stencil"
-version = "0.1.0"
+name = "stencil-template"
+version = "0.1.1"
 edition = "2021"
+license = "GPL-3.0-or-later"
+description = "A simple file templating tool for developers"
+repository = "https://github.com/kylechamberlin/stencil"
+homepage = "https://docs.rs/stencil-template"
+readme = "README.md"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "stencil"
+path = "src/main.rs"
 
 [dependencies]
