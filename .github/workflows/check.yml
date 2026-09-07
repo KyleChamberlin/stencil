@@ -18,7 +18,7 @@ jobs:
       security-events: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           toolchain: stable
           components: rustfmt, clippy
@@ -64,7 +64,7 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-      - uses: actions-rust-lang/setup-rust-toolchain@v1
+      - uses: actions-rust-lang/setup-rust-toolchain@v2
         with:
           toolchain: ${{ matrix.toolchain }}
       - name: Build tests
